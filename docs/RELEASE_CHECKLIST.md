@@ -1,4 +1,3 @@
-````md id="o3z7hq"
 # RELEASE_CHECKLIST.md
 
 # Release Checklist
