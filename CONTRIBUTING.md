@@ -20,6 +20,9 @@ cd <repository-name>
 git config core.hooksPath .githooks
 chmod +x .githooks/pre-commit   # macOS / Linux only
 
+# Fix for AI agents (Codex) — git "dubious ownership" permission error
+git config --global --add safe.directory '*'
+
 # Create a virtual environment if relevant
 python -m venv .venv
 
