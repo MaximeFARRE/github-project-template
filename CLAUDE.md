@@ -1,7 +1,7 @@
 ````md
 # CLAUDE.md
 
-Read `AGENTS.md` before starting.
+Read `AGENTS.md` and `STACK.md` before starting.
 
 ## Mandatory workflow
 

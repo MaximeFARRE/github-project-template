@@ -16,6 +16,10 @@ Please keep changes small, focused, and consistent with the existing architectur
 git clone <repository-url>
 cd <repository-name>
 
+# Enable git hooks (required — blocks direct commits to main)
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit   # macOS / Linux only
+
 # Create a virtual environment if relevant
 python -m venv .venv
 
@@ -27,7 +31,7 @@ source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-````
+```
 
 If the project uses another stack (Node.js, C++, etc.), adapt the setup commands accordingly.
 

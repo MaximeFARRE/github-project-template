@@ -2,7 +2,7 @@
 
 # Agent Operating Manual
 
-Read this file before making any change in the repository.
+Read this file **and `STACK.md`** before making any change in the repository.
 
 This repository is intended to be reused as a template for multiple projects.
 The rules below must be followed strictly.
@@ -79,6 +79,7 @@ The repository should always contain:
 README.md
 AGENTS.md
 CLAUDE.md
+STACK.md
 CONTRIBUTING.md
 LICENSE
 docs/ARCHITECTURE.md if the project is non-trivial
