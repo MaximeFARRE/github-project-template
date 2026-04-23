@@ -1,119 +1,94 @@
-# AGENTS.md
+# AGENTS.md — Agent Operating Manual
 
-# Agent Operating Manual
-
-Read this file **and `STACK.md`** before making any change in the repository.
-
-This repository is intended to be reused as a template for multiple projects.
-The rules below must be followed strictly.
+Read this file **and `STACK.md`** before making any change.
 
 ---
 
 ## Workflow
 
-1. Read the existing code and documentation before editing anything.
-2. Check the current branch with `git branch`.
-3. Never work directly on `main`.
-4. Create or use a dedicated branch:
-   - `feat/...`
-   - `fix/...`
-   - `docs/...`
-   - `chore/...`
-   - `test/...`
-5. Make small, focused changes.
-6. Commit after each logical step.
-7. Review the diff before finishing.
+1. Read existing code and docs before touching anything.
+2. `git branch` — never work on `main`.
+3. Create a branch: `feat/`, `fix/`, `docs/`, `chore/`, `test/`.
+4. Make small, focused changes. One concern per task.
+5. Commit after each logical step.
+6. Review `git diff` before finishing.
 
 ---
 
-## Commit rules
+## Architecture
 
-- Never batch unrelated changes in one commit.
-- Use Conventional Commits:
-  - `feat: add portfolio import service`
-  - `fix: correct date parsing in dashboard`
-  - `docs: rewrite README and setup guide`
-  - `chore: update .gitignore`
-- Commit frequently. A large task should usually produce several commits.
-- Never leave many modified files uncommitted.
-
----
-
-## Architecture rules
-
-Always preserve a clear separation of concerns.
-
-Preferred architecture:
-
-```text
+```
 UI / pages / components
         ↓
 services / business logic
         ↓
-repositories / api / database layer
+repositories / api / database
+```
 
-Rules:
+- UI = display and user interaction only.
+- Services = all business logic, calculations, decisions.
+- Repositories = all DB queries and external API calls.
+- Never cross layers. Never put logic in UI. Never mix persistence and business logic.
+- Reuse an existing service before creating a new one.
+- Do not duplicate logic across files.
 
-UI files only handle display and user interaction.
-Never put business logic, calculations, SQL, API calls, or data transformations inside UI files.
-All business logic belongs in dedicated services/ or domain modules.
-Database access belongs in repositories/, db/, api/, or equivalent.
-Never mix persistence and business logic in the same file.
-Reuse existing services before creating a new one.
-Do not duplicate logic.
-Create a new file only if no existing file is suitable.
-File and code rules
-Prefer minimal, targeted changes.
-Do not rewrite a whole file if a small edit is enough.
-Keep functions focused and easy to read.
-Prefer explicit names over short names.
-Avoid dead imports and unused variables.
-Never use except: pass.
-Add or update documentation when behavior changes.
-If tests exist, update or add tests for changed behavior.
-Never claim something was tested if it was not actually run.
-Documentation rules
+---
 
-The repository should always contain:
+## Code quality
 
-README.md
-AGENTS.md
-CLAUDE.md
-STACK.md
-CONTRIBUTING.md
-LICENSE
-docs/ARCHITECTURE.md if the project is non-trivial
-docs/DEVELOPMENT.md for setup and commands
+- Use explicit types and annotations (type hints, TypeScript types, etc.).
+- No magic strings or numbers — use named constants.
+- No silent error handling: no `except: pass`, no empty `catch {}`, no swallowed exceptions.
+- No `print()` / `console.log()` in committed code.
+- Functions do one thing. Max ~40 lines per function.
+- Explicit, descriptive names. Avoid abbreviations.
+- Validate inputs only at system boundaries (user input, external APIs). Trust internal code.
+- No hardcoded credentials or secrets. Use environment variables.
+- No TODO or FIXME in committed code — create a tracked issue instead.
+- If behavior is ambiguous, state assumptions explicitly before writing code.
 
-README requirements:
+---
 
-3 to 6 GitHub badges
-Short project description
-Features
-Tech stack
-Installation
-Usage
-Repository structure
-Contributors
-Limitations
-Never do
-Never commit directly to main
-Never make broad refactors unless explicitly requested
-Never silently change architecture
-Never put business logic in UI files
-Never create unnecessary files
-Never rename or delete files without a good reason
-Never mix unrelated fixes in one task
-Never invent implementation details without reading the code first
-Definition of done
+## Changes
 
-Before finishing a task:
+- Prefer targeted edits over full rewrites.
+- Do not rewrite a file if a small edit is enough.
+- Do not perform broad refactors unless explicitly requested.
+- Do not modify unrelated files.
+- Create a new file only if no existing file is suitable.
+- Never rename or delete files without a clear reason.
 
- Correct branch used
- Small logical commits created
- Diff reviewed
- Documentation updated if needed
- No business logic added to UI
- No duplicated logic introduced
- Tests run if relevant
- No unrelated files modified
+---
+
+## Commits
+
+Format: `feat|fix|docs|chore|test: <what and why in one line>`
+
+- One logical change = one commit.
+- Never batch unrelated changes in one commit.
+- Never leave many modified files uncommitted.
+
+---
+
+## Never do
+
+- Commit directly to `main`.
+- Invent implementation details without reading the code first.
+- Silently change architecture.
+- Create unnecessary files.
+- Mix unrelated fixes in one task.
+- Claim something was tested if it was not actually run.
+
+---
+
+## Definition of done
+
+Before finishing:
+
+- [ ] Correct branch used.
+- [ ] Small logical commits made.
+- [ ] `git diff` reviewed — no unrelated changes, no debug code, no secrets.
+- [ ] Documentation updated if behavior changed.
+- [ ] No business logic in UI.
+- [ ] No duplicated logic.
+- [ ] Tests run if they exist.
