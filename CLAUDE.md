@@ -1,69 +1,44 @@
-````md
 # CLAUDE.md
 
-Read `AGENTS.md` before starting.
+Read `AGENTS.md` and `STACK.md` before any change.
 
-## Mandatory workflow
+## Workflow
 
-- Run `git branch` first.
-- Never work on `main`.
-- Create or use a dedicated branch:
-  - `feat/...`
-  - `fix/...`
-  - `docs/...`
-  - `chore/...`
-  - `test/...`
-- Read files before editing them.
-- Make the smallest possible change.
-- Preserve the current architecture.
-- Commit after each logical step.
-- Review `git diff` before finishing.
+1. `git branch` — never work on `main`.
+2. Branch: `feat/`, `fix/`, `docs/`, `chore/`, `test/`.
+3. Read existing files before editing.
+4. Smallest possible change. No unrelated edits.
+5. Commit after each logical step.
+6. `git diff` before finishing.
 
-## Architecture law
+## Architecture
 
-```text
+```
 UI → Services → Repository / DB
-````
+```
 
-* Never put business logic in UI files.
-* Never put SQL, API calls, or data transformations in UI files.
-* Reuse existing services before creating a new one.
-* Keep persistence separate from business logic.
-* Do not duplicate logic.
-* Do not create unnecessary files.
+- UI = display and interaction only.
+- Services = all business logic.
+- Repositories = all DB / API access.
+- Never cross layers. Never duplicate logic.
 
-## Change policy
+## Code quality
 
-* Prefer minimal, targeted changes.
-* Do not rewrite a whole file if a small edit is enough.
-* Do not perform broad refactors unless explicitly requested.
-* Do not modify unrelated files.
-* If a task is ambiguous, state your assumptions before making changes.
+- Explicit types and annotations. No magic values — use named constants.
+- No `except: pass`, no empty catch blocks, no silent failures.
+- No `print()` / `console.log()` in committed code.
+- One responsibility per function. Explicit names. Functions ≤ 40 lines.
+- Validate only at system boundaries (user input, external APIs).
+- No hardcoded credentials. No TODO/FIXME in committed code.
+- If ambiguous, state assumptions before coding.
 
-## Commit format
+## Commits
 
-Use Conventional Commits:
-
-* `feat: ...`
-* `fix: ...`
-* `docs: ...`
-* `chore: ...`
-* `test: ...`
-
-Examples:
-
-* `feat: add import validation service`
-* `fix: prevent duplicate transactions`
-* `docs: update README architecture section`
-* `chore: update .gitignore`
+`feat|fix|docs|chore|test: <what and why>`  
+One logical change = one commit. Never batch unrelated changes.
 
 ## Before finishing
 
-* Run tests if they exist.
-* Review changed files.
-* Check `git diff`.
-* Confirm that no unrelated code was modified.
-* Update documentation if needed.
-* Summarize what changed and why.
-
-```
+- [ ] Tests pass (if they exist).
+- [ ] `git diff` reviewed — no unrelated changes, no debug code, no secrets.
+- [ ] Documentation updated if behavior changed.
