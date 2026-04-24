@@ -33,10 +33,9 @@ python -m venv .venv
 source .venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
 # Install pre-commit hooks (runs ruff + black automatically before each commit)
-pip install pre-commit
 pre-commit install
 ```
 
