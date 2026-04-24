@@ -147,6 +147,40 @@ See `docs/ROADMAP.md` for more details.
 
 ---
 
+## GitHub Setup (required per project)
+
+> These steps must be done **once on GitHub** after creating the repository.
+
+### 1. Enable write permissions for GitHub Actions
+
+`Settings → Actions → General → Workflow permissions`
+→ Select **"Read and write permissions"**
+→ Check **"Allow GitHub Actions to create and approve pull requests"**
+→ Save
+
+### 2. Protect the main branch
+
+`Settings → Branches → Add branch protection rule`
+→ Branch name pattern: `main`
+→ Check **"Require a pull request before merging"**
+→ Check **"Require status checks to pass before merging"** → add `Lint & Format` and `Tests`
+→ Check **"Do not allow bypassing the above settings"**
+→ Save
+
+### 3. Update pyproject.toml
+
+In `pyproject.toml`, replace `project-name` with your actual project name:
+
+```toml
+[project]
+name = "your-project-name"
+version = "0.1.0"
+```
+
+> **How releases work:** Every push to `main` with a `feat:` or `fix:` commit triggers an automatic version bump, a GitHub Release, and a CHANGELOG update — no manual action needed.
+
+---
+
 ## Contributing
 
 Contributions are welcome.
