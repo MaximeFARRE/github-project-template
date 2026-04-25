@@ -1,4 +1,4 @@
-# ARCHITECTURE.md
+﻿# ARCHITECTURE.md
 
 # Architecture
 
@@ -10,7 +10,7 @@ The goal is to avoid large refactors, duplicated logic, and tightly coupled file
 
 ## Core Rule
 
-```text id="sz5zwu"
+```text
 UI / Components / Pages
             ↓
 Services / Business Logic
@@ -49,7 +49,7 @@ The UI layer must never:
 
 Bad example:
 
-```text id="frz7ik"
+```text
 button_click():
     price = quantity * product.price * 1.2
     db.execute("INSERT INTO orders ...")
@@ -57,7 +57,7 @@ button_click():
 
 Good example:
 
-```text id="8ksjlb"
+```text
 button_click():
     order_service.create_order(...)
 ```
@@ -89,7 +89,7 @@ Rules:
 
 Example:
 
-```text id="d0mktj"
+```text
 OrderService
 ├── validate_order()
 ├── calculate_total()
@@ -123,14 +123,14 @@ Rules:
 
 Bad example:
 
-```text id="g59f6d"
+```text
 SELECT all users
 IF age > 18 THEN send email
 ```
 
 Good example:
 
-```text id="4z5x1l"
+```text
 users = user_repository.get_all()
 adult_users = user_service.filter_adults(users)
 ```
@@ -143,7 +143,7 @@ Each feature should have one clear owner.
 
 Example:
 
-```text id="gzy4mo"
+```text
 User data           → UserService
 Authentication      → AuthService
 Portfolio analysis  → PortfolioService
@@ -176,7 +176,7 @@ Avoid:
 
 Use clear, explicit names:
 
-```text id="w4m76m"
+```text
 auth_service.py
 portfolio_repository.py
 transaction_validator.ts
@@ -188,13 +188,13 @@ transaction_validator.ts
 
 Dependencies must always go in one direction:
 
-```text id="0txa5h"
+```text
 UI → Services → Repositories
 ```
 
 Never:
 
-```text id="7ut7ia"
+```text
 Repository → UI
 Service → UI
 UI → Repository directly
@@ -229,7 +229,7 @@ Every architectural change must be committed separately.
 
 Examples:
 
-```text id="hjlwmn"
+```text
 feat: add portfolio service
 fix: move validation from UI to service
 refactor: isolate database access into repository
@@ -247,7 +247,7 @@ Do not mix:
 
 ## Recommended Project Structure
 
-```text id="g7f0o5"
+```text
 src/
 ├── ui/
 ├── services/
@@ -271,6 +271,3 @@ If you hesitate where code belongs:
 * Repository = data access
 
 When in doubt, keep business logic out of the UI.
-
-```
-```
