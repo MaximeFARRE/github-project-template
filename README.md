@@ -2,7 +2,7 @@
 
 # 🧱 GitHub Project Template
 
-**A professional, batteries-included project template for Python projects.**  
+**A professional, batteries-included project template for Python projects.**
 Built to work seamlessly with AI coding agents (Claude, Codex, Cursor) and human developers alike.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
