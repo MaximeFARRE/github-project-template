@@ -1,23 +1,10 @@
-# CHANGELOG.md
+# CHANGELOG
 
-All notable changes to this project will be documented in this file.
+All notable changes are automatically documented here by [python-semantic-release](https://python-semantic-release.readthedocs.io/).
 
-The format is based on Keep a Changelog and this project follows Semantic Versioning.
+Versioning follows [Semantic Versioning](https://semver.org/):
+- `feat:` → minor bump (0.1.0 → 0.2.0)
+- `fix:` / `perf:` → patch bump (0.1.0 → 0.1.1)
+- `BREAKING CHANGE` footer → major bump (0.1.0 → 1.0.0)
 
-## [Unreleased]
-
-### Added
-- Initial project structure
-- Documentation template
-- GitHub issue and pull request templates
-
-### Changed
-- Nothing yet
-
-### Fixed
-- Nothing yet
-
-## [1.0.0] - YYYY-MM-DD
-
-### Added
-- First stable version
+<!-- releases -->
