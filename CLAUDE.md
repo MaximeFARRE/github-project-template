@@ -2,6 +2,13 @@
 
 Read `AGENTS.md` and `STACK.md` before any change.
 
+## Principles
+
+- **Think first** — state assumptions explicitly. If uncertain, ask. If a simpler approach exists, say so.
+- **Minimum code** — no features beyond what was asked. Nothing speculative. If it could be 50 lines, don't write 200.
+- **Surgical changes** — touch only what the task requires. Don't improve adjacent code, don't fix unrelated things.
+- **Verify goals** — define what "done" looks like before starting. Loop until verified.
+
 ## Workflow
 
 1. `git branch` — never work on `main`.
