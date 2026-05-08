@@ -1,6 +1,10 @@
 import type { Card } from "../types/card.js";
-import type { AnswerQuality, CardProgress, UserProgress } from "../types/user-progress.js";
-import { computeNextReview, createInitialCardProgress, isDueForReview } from "./spaced-repetition.js";
+import type { AnswerQuality, UserProgress } from "../types/user-progress.js";
+import {
+  computeNextReview,
+  createInitialCardProgress,
+  isDueForReview,
+} from "./spaced-repetition.js";
 import { computeXpGain, updateStreak } from "./progression.js";
 
 const DEFAULT_SESSION_SIZE = 10;
@@ -40,7 +44,8 @@ export function processAnswer(
   result: SessionResult,
   now: Date = new Date(),
 ): UserProgress {
-  const cardProgress = progress.cards[result.cardId] ?? createInitialCardProgress(result.cardId, now);
+  const cardProgress =
+    progress.cards[result.cardId] ?? createInitialCardProgress(result.cardId, now);
   const updatedCardProgress = computeNextReview(cardProgress, result.quality, now);
   const streak = updateStreak(progress, now);
   const xpGain = computeXpGain(result.quality, streak);

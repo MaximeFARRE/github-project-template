@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && eslint src/",
+    "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next .turbo"
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@finance-app/config": "workspace:*",
     "@next/eslint-plugin-next": "^15.1.6",
     "@types/node": "^22.12.0",
     "@types/react": "^19.0.7",

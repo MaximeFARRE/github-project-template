@@ -22,11 +22,7 @@
     "turbo": "^2.5.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,css}": [
+    "*.{ts,tsx,js,jsx,json,md,css}": [
       "prettier --write"
     ]
   },
