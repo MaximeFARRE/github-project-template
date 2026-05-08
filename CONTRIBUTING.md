@@ -1,125 +1,72 @@
-````md id="v4w58o"
-# CONTRIBUTING.md
-
 # Contributing
 
-Thank you for contributing to this project.
-
-Please keep changes small, focused, and consistent with the existing architecture.
+Merci de contribuer a ce projet.
 
 ---
 
 ## Setup
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd <repository-name>
-
-# Enable git hooks (required — blocks direct commits to main)
-git config core.hooksPath .githooks
-chmod +x .githooks/pre-commit   # macOS / Linux only
-
-# Fix for AI agents (Codex) — git "dubious ownership" permission error
-git config --global --add safe.directory '*'
-
-# Create a virtual environment if relevant
-python -m venv .venv
-
-# Windows
-.\.venv\Scripts\Activate.ps1
-
-# macOS / Linux
-source .venv/bin/activate
-
-# Install dependencies
-pip install -r requirements-dev.txt
-
-# Install pre-commit hooks (runs ruff + black automatically before each commit)
-pre-commit install
+git clone https://github.com/MaximeFARRE/finance-learning-app.git
+cd finance-learning-app
+pnpm install
 ```
 
-If the project uses another stack (Node.js, C++, etc.), adapt the setup commands accordingly.
+Prerequis : Node.js >= 20, pnpm >= 9.
 
 ---
 
 ## Branches
 
-Never work directly on `main`.
+Jamais sur `main`. Utiliser une branche dediee :
 
-Use a dedicated branch:
-
-| Type          | Pattern               |
-| ------------- | --------------------- |
-| Feature       | `feat/<description>`  |
-| Bug fix       | `fix/<description>`   |
-| Documentation | `docs/<description>`  |
-| Chore         | `chore/<description>` |
-| Tests         | `test/<description>`  |
-
-Examples:
-
-```text
-feat/add-user-authentication
-fix/correct-date-format
-docs/update-readme
-```
+| Type | Pattern |
+|---|---|
+| Feature | `feat/<description>` |
+| Bug fix | `fix/<description>` |
+| Documentation | `docs/<description>` |
+| Maintenance | `chore/<description>` |
+| Tests | `test/<description>` |
 
 ---
 
 ## Commits
 
-Use Conventional Commits:
+Conventional Commits :
 
-```text
-feat: add transaction import service
-fix: prevent duplicate records
-docs: rewrite README
-chore: update .gitignore
-test: add unit tests for import service
+```
+feat: add streak bonus calculation
+fix: correct XP gain for quality 2
+docs: update ROADMAP with V2 plans
+test: add spaced repetition unit tests
 ```
 
-Rules:
-
-* Commit after each logical step
-* Keep commits small and focused
-* Do not mix unrelated changes in the same commit
+Un commit = un changement logique.
 
 ---
 
 ## Architecture
 
-Always keep a clear separation of concerns:
-
-```text
-UI / pages / components
-        ↓
-services / business logic
-        ↓
-repositories / api / database
+```
+apps/web (UI) → packages/core (Logique) → packages/data (Donnees)
 ```
 
-Rules:
-
-* UI files only handle display and interaction
-* Business logic belongs in `services/`
-* Database and API access belong in `repositories/`, `db/`, or equivalent
-* Never put business logic in UI files
-* Never duplicate existing logic
-* Reuse existing files before creating new ones
+- Pas de logique metier dans les composants React
+- Pas d'acces direct au stockage depuis l'UI
+- Voir `docs/ARCHITECTURE.md`
 
 ---
 
-## Pull Requests
+## Avant de soumettre
 
-Before opening a pull request:
-
-* [ ] The branch is not `main`
-* [ ] Commits are clean and descriptive
-* [ ] No unrelated files were modified
-* [ ] Documentation was updated if necessary
-* [ ] Tests pass if the project contains tests
-* [ ] The architecture rules above are still respected
-
+```bash
+pnpm lint
+pnpm test
+pnpm build
 ```
-```
+
+- [ ] Branche correcte (pas `main`)
+- [ ] Commits propres
+- [ ] Pas de fichiers non lies modifies
+- [ ] Documentation mise a jour si necessaire
+- [ ] Architecture respectee

@@ -1,273 +1,141 @@
-﻿# ARCHITECTURE.md
-
 # Architecture
 
-This project follows a strict layered architecture to keep the code maintainable, testable, and easy to evolve.
-
-The goal is to avoid large refactors, duplicated logic, and tightly coupled files.
+Ce projet suit une architecture en couches stricte dans un monorepo TypeScript.
 
 ---
 
-## Core Rule
+## Regle fondamentale
 
-```text
-UI / Components / Pages
-            ↓
-Services / Business Logic
-            ↓
-Repositories / Database / API / External Sources
-````
-
-Each layer has a single responsibility.
-
----
-
-## 1. UI Layer
-
-Examples:
-
-* Pages
-* Components
-* Views
-* Screens
-* Controllers directly linked to the interface
-
-Responsibilities:
-
-* Display data
-* Handle user interactions
-* Trigger actions
-* Call services
-
-The UI layer must never:
-
-* Contain business logic
-* Execute SQL queries
-* Access the database directly
-* Call external APIs directly
-* Duplicate calculations or validation rules
-
-Bad example:
-
-```text
-button_click():
-    price = quantity * product.price * 1.2
-    db.execute("INSERT INTO orders ...")
+```
+apps/web (UI)
+     ↓
+packages/core (Logique metier)
+     ↓
+packages/data (Acces aux donnees)
 ```
 
-Good example:
+Chaque couche a une responsabilite unique. Les dependances vont toujours dans une seule direction.
 
-```text
-button_click():
-    order_service.create_order(...)
+---
+
+## 1. UI Layer — `apps/web`
+
+Application Next.js (App Router).
+
+Responsabilites :
+- Afficher les donnees
+- Gerer les interactions utilisateur
+- Appeler les fonctions de `packages/core`
+- Utiliser les composants de `packages/ui`
+
+Interdictions :
+- Pas de logique metier (calculs, decisions, validation business)
+- Pas d'acces direct au stockage ou aux APIs externes
+- Pas de duplication de regles de calcul
+
+Bon exemple :
+```tsx
+const progress = processAnswer(userProgress, { cardId, quality: 4 });
+```
+
+Mauvais exemple :
+```tsx
+const xp = quality >= 3 ? quality * 5 : 0;
+localStorage.setItem("progress", JSON.stringify({ ...progress, xp }));
 ```
 
 ---
 
-## 2. Services Layer
+## 2. Core Layer — `packages/core`
 
-Examples:
+Logique metier pure, sans dependance React ni navigateur.
 
-* Business rules
-* Validation
-* Calculations
-* Data transformations
-* Coordination between multiple repositories or APIs
+Contient :
+- `learning/spaced-repetition.ts` — algorithme de repetition espacee (SM-2)
+- `learning/progression.ts` — calcul XP, streak, bonus
+- `learning/session-engine.ts` — selection des cartes, traitement des reponses
+- `levels/level-engine.ts` — systeme de niveaux et titres
+- `types/` — types metier (Card, Notion, UserProgress, etc.)
 
-Responsibilities:
+Regles :
+- TypeScript pur, pas de dependance framework
+- Fonctions pures autant que possible
+- Testable en isolation avec Vitest
 
-* Centralize all business logic
-* Expose a clear API to the UI
-* Reuse existing logic
-* Become the single source of truth for the project
+---
 
-Rules:
+## 3. Data Layer — `packages/data`
 
-* A feature should have one main service responsible for it
-* Services may call repositories or other services
-* Services must not depend on UI code
+Acces aux donnees via le pattern Repository.
 
-Example:
+Contient :
+- `progress-repository.ts` — interface `ProgressRepository`
+- `local-storage-progress-repository.ts` — implementation localStorage (V1)
 
-```text
-OrderService
-├── validate_order()
-├── calculate_total()
-├── create_order()
-└── cancel_order()
+Objectif : pouvoir passer a Supabase en creant une nouvelle implementation sans modifier le reste de l'app.
+
+---
+
+## 4. Content — `packages/content`
+
+Contenus pedagogiques separes du code applicatif.
+
+Chaque notion est decoupee en micro-cartes :
+- Definition
+- Intuition
+- Exemple
+- Formule / mecanisme
+- Piege classique
+- Question d'entretien
+- Reponse modele
+
+Categories : market-finance, corporate-finance, private-equity, accounting, programming.
+
+---
+
+## 5. UI Components — `packages/ui`
+
+Composants React reutilisables et presentationnels.
+
+- `ProgressBar` — barre de progression accessible
+- `Badge` — badge colore avec variantes
+- `FlipCard` — carte retournable pour l'apprentissage
+
+Pas de logique metier dans ces composants.
+
+---
+
+## 6. Config — `packages/config`
+
+Configurations partagees :
+- ESLint (base + Next.js)
+- Prettier
+- TypeScript (base + Next.js)
+
+---
+
+## Direction des dependances
+
+```
+apps/web → packages/core, packages/content, packages/data, packages/ui
+packages/content → packages/core (types)
+packages/data → packages/core (types)
+packages/ui → packages/core (types), react
+packages/core → rien (autonome)
+packages/config → rien (autonome)
+```
+
+Interdit :
+```
+packages/core → apps/web
+packages/data → apps/web
+packages/core → packages/data (le core ne sait pas comment les donnees sont stockees)
 ```
 
 ---
 
-## 3. Repository / Data Layer
+## Politique de refactoring
 
-Examples:
-
-* Database access
-* SQL queries
-* ORM logic
-* External API calls
-* File loading / saving
-
-Responsibilities:
-
-* Read and write data
-* Isolate persistence and external systems
-* Return clean data structures to services
-
-Rules:
-
-* Repositories must not contain business logic
-* Repositories should only perform data access
-* SQL, HTTP requests, file I/O, and external integrations belong here
-
-Bad example:
-
-```text
-SELECT all users
-IF age > 18 THEN send email
-```
-
-Good example:
-
-```text
-users = user_repository.get_all()
-adult_users = user_service.filter_adults(users)
-```
-
----
-
-## Single Source of Truth
-
-Each feature should have one clear owner.
-
-Example:
-
-```text
-User data           → UserService
-Authentication      → AuthService
-Portfolio analysis  → PortfolioService
-Import logic        → ImportService
-```
-
-Avoid:
-
-* Same logic copied in several files
-* Same calculation implemented twice
-* UI files creating their own rules
-
-If a rule already exists in a service, reuse it.
-
----
-
-## File Creation Policy
-
-Before creating a new file:
-
-* Check if an existing file already has the correct responsibility
-* Prefer extending an existing service instead of creating duplicates
-* Only create a new file if it clearly improves clarity or separation
-
-Avoid:
-
-* `new_service_v2.py`
-* `helper_final.py`
-* `utils_temp.ts`
-
-Use clear, explicit names:
-
-```text
-auth_service.py
-portfolio_repository.py
-transaction_validator.ts
-```
-
----
-
-## Dependency Direction
-
-Dependencies must always go in one direction:
-
-```text
-UI → Services → Repositories
-```
-
-Never:
-
-```text
-Repository → UI
-Service → UI
-UI → Repository directly
-```
-
----
-
-## Refactoring Policy
-
-This project favors small and safe changes.
-
-Rules:
-
-* Make the smallest change possible
-* Preserve the current architecture
-* Do not rewrite large files without a strong reason
-* Avoid broad refactors during feature work
-* Refactor only when the gain is clear and immediate
-
-If a large refactor is needed:
-
-1. Document the reason
-2. Split it into several small commits
-3. Keep behavior unchanged
-4. Update the documentation
-
----
-
-## Commit Discipline
-
-Every architectural change must be committed separately.
-
-Examples:
-
-```text
-feat: add portfolio service
-fix: move validation from UI to service
-refactor: isolate database access into repository
-docs: update architecture documentation
-```
-
-Do not mix:
-
-* Architecture changes
-* Feature work
-* Formatting only
-* Documentation only
-
----
-
-## Recommended Project Structure
-
-```text
-src/
-├── ui/
-├── services/
-├── repositories/
-├── db/
-├── models/
-├── utils/
-└── tests/
-```
-
-Possible variants depending on the stack are acceptable, as long as the separation of concerns remains clear.
-
----
-
-## Final Rule
-
-If you hesitate where code belongs:
-
-* UI = display and interaction
-* Service = decision and business logic
-* Repository = data access
-
-When in doubt, keep business logic out of the UI.
+- Changement minimal possible
+- Pas de gros refactor pendant le developpement de features
+- Si un refactor est necessaire : documenter, decouper en petits commits, garder le comportement identique

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Read `AGENTS.md` and `STACK.md` before any change.
+Read `AGENTS.md` before any change.
 
 ## Principles
 
@@ -18,26 +18,59 @@ Read `AGENTS.md` and `STACK.md` before any change.
 5. Commit after each logical step.
 6. `git diff` before finishing.
 
+## Stack
+
+- **Language**: TypeScript 5.7
+- **Framework**: Next.js 15 (App Router)
+- **UI**: React 19 + Tailwind CSS
+- **Monorepo**: pnpm workspaces + Turborepo
+- **Tests**: Vitest
+- **Lint**: ESLint + Prettier
+- **Package manager**: pnpm
+
 ## Architecture
 
 ```
-UI → Services → Repository / DB
+UI (apps/web) → Core/Services (packages/core) → Repositories/Data (packages/data)
 ```
 
-- UI = display and interaction only.
-- Services = all business logic.
-- Repositories = all DB / API access.
+- UI = display and interaction only. No business logic in React components.
+- Core = all business logic, calculations, decisions. Pure TypeScript, no React dependencies.
+- Data = all persistence. Repository pattern. Local storage now, Supabase later.
+- Content = pedagogical content, separate from app code.
 - Never cross layers. Never duplicate logic.
+
+## Monorepo packages
+
+| Package | Role |
+|---|---|
+| `apps/web` | Next.js application (routes, pages, layout) |
+| `packages/core` | Business logic (progression, spaced repetition, levels) |
+| `packages/content` | Notions and micro-cards data |
+| `packages/data` | Repository interfaces + implementations |
+| `packages/ui` | Shared React components |
+| `packages/config` | ESLint, Prettier, TypeScript shared configs |
 
 ## Code quality
 
-- Explicit types and annotations. No magic values — use named constants.
-- No `except: pass`, no empty catch blocks, no silent failures.
-- No `print()` / `console.log()` in committed code.
-- One responsibility per function. Explicit names. Functions ≤ 40 lines.
+- Explicit types. No `any` unless justified. No magic values — use named constants.
+- No empty catch blocks, no silent failures.
+- No `console.log()` in committed code.
+- One responsibility per function. Explicit names. Functions <= 40 lines.
 - Validate only at system boundaries (user input, external APIs).
 - No hardcoded credentials. No TODO/FIXME in committed code.
-- If ambiguous, state assumptions before coding.
+
+## Commands
+
+```bash
+pnpm install          # Install all dependencies
+pnpm dev              # Start dev server
+pnpm build            # Build all packages
+pnpm lint             # Lint all packages
+pnpm test             # Run all tests
+pnpm format           # Check formatting
+pnpm format:fix       # Fix formatting
+```
 
 ## Commits
 
@@ -46,6 +79,7 @@ One logical change = one commit. Never batch unrelated changes.
 
 ## Before finishing
 
-- [ ] Tests pass (if they exist).
+- [ ] Tests pass (`pnpm test`).
+- [ ] Lint passes (`pnpm lint`).
 - [ ] `git diff` reviewed — no unrelated changes, no debug code, no secrets.
 - [ ] Documentation updated if behavior changed.

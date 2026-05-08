@@ -1,96 +1,63 @@
-# ROADMAP.md
-
 # Roadmap
 
-This file describes the planned improvements for the project.
+---
 
-The roadmap should remain realistic and focused. It is better to list a few meaningful improvements than many vague ideas.
+## V1 — MVP Fonctionnel
+
+Objectif : une app web utilisable pour reviser les notions de finance avec des micro-cartes.
+
+### Infrastructure
+- [x] Monorepo TypeScript (pnpm + Turborepo)
+- [x] CI/CD (GitHub Actions : lint, test, build, release)
+- [x] Pre-commit hooks (Husky + lint-staged)
+- [x] Architecture en couches (UI → Core → Data)
+- [ ] Deploiement (Vercel)
+
+### Core
+- [x] Types metier (Card, Notion, UserProgress)
+- [x] Moteur de repetition espacee (SM-2)
+- [x] Systeme de progression (XP, streak)
+- [x] Systeme de niveaux (titres finance)
+- [x] Moteur de session (selection de cartes, traitement des reponses)
+- [ ] Statistiques de session (taux de reussite, temps moyen)
+
+### Contenu
+- [x] Structure de notion avec 7 types de micro-cartes
+- [x] Exemple : Straddle (finance de marche)
+- [ ] 5-10 notions supplementaires par categorie
+- [ ] Validation du contenu
+
+### UI
+- [x] Composants de base (ProgressBar, Badge, FlipCard)
+- [ ] Page d'accueil avec categories
+- [ ] Page de session d'apprentissage
+- [ ] Page de progression utilisateur
+- [ ] Responsive design (mobile-first)
+- [ ] PWA (manifest, service worker)
+
+### Data
+- [x] Interface ProgressRepository
+- [x] Implementation localStorage
+- [ ] Supabase (authentification + persistence)
 
 ---
 
-## Current Priorities
+## V2 — Ameliorations
 
-- [ ] Improve project documentation
-- [ ] Add missing screenshots
-- [ ] Improve `.gitignore`
-- [ ] Add or improve tests
-- [ ] Improve commit history quality
-- [ ] Clean repository structure
-
----
-
-## Short-Term Improvements
-
-Typical improvements for the next version:
-
-- [ ] Refactor remaining business logic out of the UI
-- [ ] Centralize duplicated logic into services
-- [ ] Improve error handling
-- [ ] Improve validation
-- [ ] Add missing unit tests
-- [ ] Improve installation instructions
-- [ ] Add better logging
+- [ ] shadcn/ui pour les composants
+- [ ] Animations et transitions
+- [ ] Mode sombre
+- [ ] Recherche de notions
+- [ ] Filtrage par categorie et difficulte
+- [ ] Statistiques detaillees
+- [ ] Gamification avancee (badges, achievements)
+- [ ] Playwright pour les tests E2E
 
 ---
 
-## Medium-Term Improvements
+## Hors scope (pour le moment)
 
-- [ ] Improve performance
-- [ ] Add caching if relevant
-- [ ] Split large files into smaller modules
-- [ ] Improve repository and service separation
-- [ ] Add CI with :contentReference[oaicite:0]{index=0}
-- [ ] Add linting and formatting checks
-- [ ] Improve code coverage
-
----
-
-## Long-Term Improvements
-
-- [ ] Add deployment workflow
-- [ ] Add automatic releases
-- [ ] Add advanced monitoring or analytics
-- [ ] Improve scalability
-- [ ] Add better documentation for contributors
-- [ ] Create a more complete test suite
-
----
-
-## Example Future Features
-
-Replace these examples depending on the project:
-
-```text id="t5v6k0"
-- Add user authentication
-- Add export/import functionality
-- Add dashboard and analytics
-- Add API integration
-- Add mobile support
-````
-
----
-
-## Out of Scope
-
-To keep the project focused, the following items are currently out of scope:
-
-```text id="t2m8j1"
-- Complete rewrite of the project
-- Large framework migration
-- Premature optimization
-- Unnecessary microservices
-```
-
----
-
-## Notes
-
-The roadmap should evolve over time.
-
-Whenever an important improvement is completed:
-
-* Remove it from this file
-* Add it to `CHANGELOG.md`
-
-```
-```
+- Application desktop (Tauri)
+- Reponses orales
+- IA generative pour les questions
+- Multi-tenant / mode equipe

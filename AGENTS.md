@@ -1,6 +1,15 @@
 # AGENTS.md — Agent Operating Manual
 
-Read this file **and `STACK.md`** before making any change.
+Read this file before making any change.
+
+---
+
+## Stack
+
+- TypeScript 5.7, Next.js 15 (App Router), React 19, Tailwind CSS
+- pnpm workspaces + Turborepo monorepo
+- Vitest for tests, ESLint + Prettier for linting/formatting
+- Packages: `apps/web`, `packages/core`, `packages/content`, `packages/data`, `packages/ui`, `packages/config`
 
 ---
 
@@ -18,16 +27,18 @@ Read this file **and `STACK.md`** before making any change.
 ## Architecture
 
 ```
-UI / pages / components
+apps/web (UI / Pages / Components)
         ↓
-services / business logic
+packages/core (Services / Business Logic)
         ↓
-repositories / api / database
+packages/data (Repositories / Storage)
 ```
 
-- UI = display and user interaction only.
-- Services = all business logic, calculations, decisions.
-- Repositories = all DB queries and external API calls.
+- **UI** (`apps/web`) = display and user interaction only. No business logic in React components.
+- **Core** (`packages/core`) = all business logic, calculations, decisions. Pure TypeScript.
+- **Data** (`packages/data`) = all persistence. Repository interfaces. Local storage → Supabase.
+- **Content** (`packages/content`) = pedagogical content. Notions and micro-cards.
+- **UI components** (`packages/ui`) = shared presentational components. No business logic.
 - Never cross layers. Never put logic in UI. Never mix persistence and business logic.
 - Reuse an existing service before creating a new one.
 - Do not duplicate logic across files.
@@ -36,16 +47,15 @@ repositories / api / database
 
 ## Code quality
 
-- Use explicit types and annotations (type hints, TypeScript types, etc.).
+- Use explicit TypeScript types. No `any` unless justified.
 - No magic strings or numbers — use named constants.
-- No silent error handling: no `except: pass`, no empty `catch {}`, no swallowed exceptions.
-- No `print()` / `console.log()` in committed code.
+- No silent error handling: no empty `catch {}`, no swallowed exceptions.
+- No `console.log()` in committed code.
 - Functions do one thing. Max ~40 lines per function.
 - Explicit, descriptive names. Avoid abbreviations.
 - Validate inputs only at system boundaries (user input, external APIs). Trust internal code.
 - No hardcoded credentials or secrets. Use environment variables.
 - No TODO or FIXME in committed code — create a tracked issue instead.
-- If behavior is ambiguous, state assumptions explicitly before writing code.
 
 ---
 
@@ -70,6 +80,19 @@ Format: `feat|fix|docs|chore|test: <what and why in one line>`
 
 ---
 
+## Commands
+
+```bash
+pnpm install          # Install all dependencies
+pnpm dev              # Start dev server
+pnpm build            # Build all packages
+pnpm lint             # Lint all packages
+pnpm test             # Run all tests
+pnpm format           # Check formatting
+```
+
+---
+
 ## Never do
 
 - Commit directly to `main`.
@@ -78,6 +101,8 @@ Format: `feat|fix|docs|chore|test: <what and why in one line>`
 - Create unnecessary files.
 - Mix unrelated fixes in one task.
 - Claim something was tested if it was not actually run.
+- Put business logic in React components.
+- Access data/storage directly from UI code.
 
 ---
 
@@ -87,8 +112,9 @@ Before finishing:
 
 - [ ] Correct branch used.
 - [ ] Small logical commits made.
+- [ ] `pnpm lint` passes.
+- [ ] `pnpm test` passes.
 - [ ] `git diff` reviewed — no unrelated changes, no debug code, no secrets.
 - [ ] Documentation updated if behavior changed.
 - [ ] No business logic in UI.
 - [ ] No duplicated logic.
-- [ ] Tests run if they exist.
