@@ -1,8 +1,208 @@
 # CHANGELOG
 
+## v0.1.1 (2026-05-24)
+
+### Chore
+
+* chore(deps-dev): bump black to 26.3.1 and pytest-cov to 7.1.0 ([`2f3d095`](https://github.com/MaximeFARRE/github-project-template/commit/2f3d095009aaf26330b3fe9aaf8dcd7a1ac9cc5e))
+
+* chore(deps-dev): bump mypy from 1.8.0 to 1.20.2
+
+Bumps [mypy](https://github.com/python/mypy) from 1.8.0 to 1.20.2.
+- [Changelog](https://github.com/python/mypy/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python/mypy/compare/v1.8.0...v1.20.2)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-version: 1.20.2
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`caccffb`](https://github.com/MaximeFARRE/github-project-template/commit/caccffba83fb468efdb5cab6e5b9b8e7a2f72b67))
+
+* chore(deps-dev): bump pytest from 7.4.4 to 9.0.3
+
+Bumps [pytest](https://github.com/pytest-dev/pytest) from 7.4.4 to 9.0.3.
+- [Release notes](https://github.com/pytest-dev/pytest/releases)
+- [Changelog](https://github.com/pytest-dev/pytest/blob/main/CHANGELOG.rst)
+- [Commits](https://github.com/pytest-dev/pytest/compare/7.4.4...9.0.3)
+
+---
+updated-dependencies:
+- dependency-name: pytest
+  dependency-version: 9.0.3
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`d566314`](https://github.com/MaximeFARRE/github-project-template/commit/d5663140fa2fee5c6f8c6102c0648b7fbdc17dd6))
+
+* chore(deps-dev): bump pre-commit from 3.7.0 to 4.6.0
+
+Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 3.7.0 to 4.6.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v3.7.0...v4.6.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-version: 4.6.0
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`5d14c84`](https://github.com/MaximeFARRE/github-project-template/commit/5d14c845123bf33efcb497e9208fbcb4efcc8e59))
+
+* chore(deps): bump actions/checkout from 4 to 6
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 4 to 6.
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v4...v6)
+
+---
+updated-dependencies:
+- dependency-name: actions/checkout
+  dependency-version: &#39;6&#39;
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`44194a9`](https://github.com/MaximeFARRE/github-project-template/commit/44194a9e768d63d91802e0251169847693fdc53e))
+
+* chore(deps): bump actions/setup-python from 5 to 6
+
+Bumps [actions/setup-python](https://github.com/actions/setup-python) from 5 to 6.
+- [Release notes](https://github.com/actions/setup-python/releases)
+- [Commits](https://github.com/actions/setup-python/compare/v5...v6)
+
+---
+updated-dependencies:
+- dependency-name: actions/setup-python
+  dependency-version: &#39;6&#39;
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`c1bfe6f`](https://github.com/MaximeFARRE/github-project-template/commit/c1bfe6f3be65560c641f88e27fa11ecda8737493))
+
+* chore: add mypy, Makefile, dependabot, editorconfig, coverage and conftest
+
+- pyproject.toml: add mypy config + pytest --cov by default
+- .github/workflows/ci.yml: add mypy step, use --cov in tests job
+- Makefile: lint / test / fix / all commands
+- .github/dependabot.yml: weekly auto-updates for pip and github-actions
+- .editorconfig: consistent indent/charset across editors and agents
+- tests/conftest.py: fixture skeleton for pytest
+- docs/ARCHITECTURE.md: fix trailing backtick and clean code fence IDs ([`a3660cf`](https://github.com/MaximeFARRE/github-project-template/commit/a3660cff65bb71e1684b522a851374996b934f3a))
+
+* chore: initialize automations and fix whitespace across all files
+
+- pre-commit installed and verified: all hooks pass
+- .pre-commit-config.yaml: remove Windows-incompatible local branch hook
+  (branch protection handled by GitHub branch protection rules)
+- trailing-whitespace and end-of-file fixes applied by pre-commit
+  on CLAUDE.md, CODEX.md, README.md, .gitignore, LICENSE, PROMPTS.md,
+  .env.example, pull_request_template.md, issue templates ([`bb3b3f7`](https://github.com/MaximeFARRE/github-project-template/commit/bb3b3f7d219370d92d3e31035fa15d8bac087437))
+
+### Documentation
+
+* docs: update README with mypy, Makefile, dependabot and corrected setup ([`b57ac91`](https://github.com/MaximeFARRE/github-project-template/commit/b57ac91f7c0ac1b05137e7bdf43640bfab043c20))
+
+* docs: integrate Karpathy principles into CLAUDE.md ([`6ad052e`](https://github.com/MaximeFARRE/github-project-template/commit/6ad052ea735e8371cbdf9528ae24ca294b502033))
+
+* docs: rewrite README and add README.example.md for project publication
+
+- README.md: full rewrite as template documentation
+  - badges (license, python, ruff, black, pre-commit, semantic-release, CI)
+  - purpose, included tools table, architecture convention
+  - design choices (why ruff+black, pre-commit, semantic-release, separate agent files)
+  - step-by-step setup guide (local + GitHub)
+  - release workflow explanation with commit → version table
+  - AI agent instructions summary
+  - full project structure
+- README.example.md: skeleton for real project READMEs
+  - badges, features, screenshots, tech stack table
+  - installation, usage, tests, contributing sections ([`2f89c9d`](https://github.com/MaximeFARRE/github-project-template/commit/2f89c9d863763588f095ce54c5b7d35efbbd4592))
+
+### Fix
+
+* fix(ci): correct action versions and handle empty src/tests
+
+- actions/checkout@v6 and setup-python@v6 do not exist; pin to v4/v5
+- mypy src/ exits 2 when no .py files are present; skip gracefully
+- pytest exits 5 when no tests are collected; treat as success
+
+Co-Authored-By: Claude Sonnet 4.6 &lt;noreply@anthropic.com&gt; ([`7693413`](https://github.com/MaximeFARRE/github-project-template/commit/7693413d3aa184255c5dc9d7d9a2707598a0354d))
+
+### Test
+
+* test: add placeholder test to prevent pytest exit code 5
+
+pytest exits with code 5 (no tests collected) when the test suite is
+empty, causing CI to fail. A minimal passing test avoids this until
+real tests are added.
+
+Co-Authored-By: Claude Sonnet 4.6 &lt;noreply@anthropic.com&gt; ([`d0fbda1`](https://github.com/MaximeFARRE/github-project-template/commit/d0fbda1133e1b7d47ad0f5a6cd075c09e5bc4963))
+
+### Unknown
+
+* Merge pull request #24 from MaximeFARRE/fix/ci-workflow
+
+fix(ci): correct action versions and handle empty src/tests ([`c33f62f`](https://github.com/MaximeFARRE/github-project-template/commit/c33f62fb191b10a2a13b825aec4356e715595f45))
+
+* Merge pull request #16 from MaximeFARRE/docs/rewrite-readme
+
+docs: update README — mypy, Makefile, dependabot, corrected setup ([`7f0996d`](https://github.com/MaximeFARRE/github-project-template/commit/7f0996dbbfa420c18b8e50be1fab1702b97e2afd))
+
+* Merge pull request #14 from MaximeFARRE/docs/improve-claude-md
+
+docs: integrate Karpathy principles into CLAUDE.md ([`8206a65`](https://github.com/MaximeFARRE/github-project-template/commit/8206a65d4977d0d41461f08a2bba8df9b9c5de64))
+
+* Merge pull request #15 from MaximeFARRE/chore/fix-deps-conflicts
+
+chore(deps-dev): bump black to 26.3.1 and pytest-cov to 7.1.0 ([`1592e70`](https://github.com/MaximeFARRE/github-project-template/commit/1592e708821c8574f94be92d623d040c2d329513))
+
+* Merge pull request #11 from MaximeFARRE/dependabot/pip/mypy-1.20.2
+
+chore(deps-dev): bump mypy from 1.8.0 to 1.20.2 ([`3c5f8ec`](https://github.com/MaximeFARRE/github-project-template/commit/3c5f8ec953a8a2c33429a56dddcd90eac3e4fa38))
+
+* Merge pull request #10 from MaximeFARRE/dependabot/pip/pytest-9.0.3
+
+chore(deps-dev): bump pytest from 7.4.4 to 9.0.3 ([`52a88c6`](https://github.com/MaximeFARRE/github-project-template/commit/52a88c603f243bfbc023f82241ebafadc42f3967))
+
+* Merge pull request #9 from MaximeFARRE/dependabot/pip/pre-commit-4.6.0
+
+chore(deps-dev): bump pre-commit from 3.7.0 to 4.6.0 ([`59c3a32`](https://github.com/MaximeFARRE/github-project-template/commit/59c3a3239a22af206a5d5a72341ab2ee3583fa42))
+
+* Merge pull request #8 from MaximeFARRE/dependabot/github_actions/actions/checkout-6
+
+chore(deps): bump actions/checkout from 4 to 6 ([`ee19d5d`](https://github.com/MaximeFARRE/github-project-template/commit/ee19d5d5c6b85fcd3e99380a5da647590b81b9f0))
+
+* Merge pull request #7 from MaximeFARRE/dependabot/github_actions/actions/setup-python-6
+
+chore(deps): bump actions/setup-python from 5 to 6 ([`7f0df17`](https://github.com/MaximeFARRE/github-project-template/commit/7f0df1791fdbaaa2f698d8c794b5e90bed2e912a))
+
+* Merge pull request #6 from MaximeFARRE/chore/improve-tooling
+
+chore: add mypy, Makefile, dependabot, editorconfig, coverage and conftest ([`338aa6a`](https://github.com/MaximeFARRE/github-project-template/commit/338aa6a8027446044ae837799f4200e26a8fe17a))
+
+* Merge pull request #5 from MaximeFARRE/chore/init-automations
+
+chore: initialize automations and apply pre-commit fixes ([`40071dd`](https://github.com/MaximeFARRE/github-project-template/commit/40071dde831e860e3861a7dec03da1a8b7c7047d))
+
+* Merge pull request #4 from MaximeFARRE/docs/rewrite-readme
+
+docs: rewrite README for template publication + add README.example.md ([`92fc835`](https://github.com/MaximeFARRE/github-project-template/commit/92fc8354b9da2dc45e0a615462fea0b0c0735184))
+
 ## v0.1.0 (2026-04-25)
 
 ### Chore
+
+* chore(release): v0.1.0 [skip ci] ([`2dfd1e0`](https://github.com/MaximeFARRE/github-project-template/commit/2dfd1e0d79722714346658ee695dbe07329cf33e))
 
 * chore: add requirements.txt and requirements-dev.txt
 
